@@ -1,0 +1,9 @@
+#form-box {
+  width: 40vw;
+  padding: 1rem 2rem;
+  display: none;
+}
+#RestaurantTarget {
+  width: 40vw;
+  display: inline-block;
+}

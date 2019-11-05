@@ -22,17 +22,22 @@ html(lang='en')
       h1 Restaurant App
       h2 Hello World!
       br
-      .jumbotron
-          h4 Add a New Restaurant
-          form#restaurant-form
-            .form-group
-              label(for="restaurantName") Restaurant Name
-              input.text-center.form-control(type='text',name="restaurantName", placeholder="Baitlin's Bakery")
-            .form-group
-              label(for="restuarantAddy") Restaurant Address
-              input.text-center.form-control(type='text',name="restaurantAddy", placeholder="123 Main St., San Jose, CA, USA")
-            .form-group
-              label(for="restuarantType") Type of Food
-              input.text-center.form-control(type='text',name="restaurantType", placeholder="Pastries & Desserts")
-            button.btn.btn-primary.text-center(type='submit') Save Restaurant
+      button#show-form.btn.btn-primary.text-center Add Restaurant
+      .row.justify-content-md-center
+        #form-box.jumbotron
+            h4 Add a New Restaurant
+            form#restaurant-form
+              .form-group
+                label(for="restaurantName") Restaurant Name
+                input.text-center.form-control(type='text',name="restaurantName", placeholder="Baitlin's Bakery", required="")
+              .form-group
+                label(for="restuarantAddy") Restaurant Address
+                input.text-center.form-control(type='text',name="restaurantAddy", placeholder="123 Main St., San Jose, CA, USA", required="")
+              .form-group
+                label(for="restuarantType") Type of Food
+                input.text-center.form-control(type='text',name="restaurantType", placeholder="Pastries & Desserts", required="")
+              button.btn.btn-primary.text-center(type='submit') Save Restaurant
+              br
+              br
+              button#close-form.btn.btn-danger.text-center Cancel
       #RestaurantTarget

@@ -22,5 +22,7 @@ app.get('/', function(req,res){
 
 app.get('/api/restaurants', controllers.restaurants.index);
 app.post('/api/restaurants', controllers.restaurants.create);
+app.delete('/api/restaurants/:restaurant_id', controllers.restaurants.destroy)
+
 
 var server = app.listen(process.env.PORT,() => console.log(`listening on ${process.env.PORT}`));

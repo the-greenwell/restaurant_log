@@ -1,9 +1,21 @@
-#form-box {
-  width: 40vw;
-  padding: 1rem 2rem;
-  display: none;
-}
 #RestaurantTarget {
   width: 40vw;
+  display: inline-block;
+}
+#map{
+  height: 60vh;
+  width: 70vw;
+  display: inline-block;
+}
+.pac-container {
+    z-index: 9999 !important;
+}
+.restaurant-show {
+  height: auto;
+  background-color: lightgrey;
+  border-radius: .5em;
+  margin-bottom: 1em;
+  padding: 1em;
+  width: 35vw;
   display: inline-block;
 }

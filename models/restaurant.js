@@ -4,6 +4,8 @@ var Schema = mongoose.Schema;
 var RestaurantSchema = new Schema({
   name: String,
   address: String,
+  longitude: Number,
+  latitude: Number,
   type: String
 });
 

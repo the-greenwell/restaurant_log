@@ -1,8 +1,17 @@
 console.log('JavaScript is Running!')
+
 var $restaurantList;
 var allRestaurants = [];
 
 $(document).ready(function(){
+
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+
+  $('#formModal').on('shown.bs.modal', function () {
+    $('#restaurant-name').trigger('focus')
+  })
 
   $restaurantList = $('#RestaurantTarget');
   $.ajax({
@@ -21,8 +30,6 @@ $(document).ready(function(){
       success: newRestaurantSucess,
       error: newRestaurantErr
     });
-      $("#show-form").css("display","inline-block");
-      $("#form-box").css("display","none");
   })
 
   $restaurantList.on('click', '.deleteBtn', function() {
@@ -34,32 +41,69 @@ $(document).ready(function(){
     });
   });
 
-  $("#show-form").on('click', function(){
-    $("#show-form").css("display","none");
-    $("#form-box").css("display","block");
-  })
-
-  $("#close-form").on('click', function(e){
-    e.preventDefault();
-    $("#form-box").css("display","none");
-    $("#show-form").css("display","inline-block");
-  })
-
 });
 
+var map;
+var marker;
+var placeSearch;
+var autocomplete;
+var base = {lat: 37.275274, lng: -121.843261};
+var iconBase = '../images/';
+var gmarker = [];
+
+function initAll() {
+  initMap();
+  initAutocomplete();
+}
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 37.332882, lng: -121.890146},
+    zoom: 11,
+    streetViewControl: false
+  });
+  marker = new google.maps.Marker({
+    position: base,
+    map: map,
+    icon: iconBase + 'homePin.png',
+  })
+}
+
+function initAutocomplete() {
+  autocomplete= new google.maps.places.Autocomplete(
+    document.getElementById('autocomplete'),{types:['geocode']});
+  autocomplete.setFields(['address_component']);
+}
+
+function geolocate() {
+  navigator.geolocation.getCurrentPosition(function(position) {
+    var circle = new google.maps.Circle(
+        {center: base, radius: position.coords.accuracy});
+    autocomplete.setBounds(circle.getBounds());
+  });
+}
+
+
 function formatRestaurant(restaurant) {
+  var restaurantPlot = new google.maps.Marker({
+    position: {
+      lat: restaurant.latitude,
+      lng: restaurant.longitude
+    },
+    map: map,
+    icon: iconBase + 'restaurantPin.png',
+  });
+
+  restaurantPlot.id = restaurant._id;
+  gmarker.push(restaurantPlot);
   return`
   <hr>
-    <p>
-      <b>${restaurant.name}</b>
-      <br/>
-      <small>${restaurant.address}</small>
-      <br/>
-      <small><i>${restaurant.type}</i></small>
-      <br/>
-      <br/>
-      <button type="button" name="button" class="deleteBtn btn btn-danger pull-right" data-id=${restaurant._id}>Delete</button>
-    </p>`
+    <div class='restaurant-show text-left' >
+      <p><small>Name:</small> <b>${restaurant.name}</b></p>
+      <p><small>Address:</small> <b>${restaurant.address}</b></p>
+      <p><small>Type:</small> <b><i>${restaurant.type}</i></b></p>
+      <button type="button" name="button" class="deleteBtn btn btn-danger btn-block" data-id=${restaurant._id}>Delete Restaurant</button>
+    </div>`
 }
 
 function formatAllRestaurants(restaurants){
@@ -82,6 +126,7 @@ function handleErr(err) {
 }
 
 function newRestaurantSucess(json) {
+  $('#formModal').modal('hide');
   $('#restaurant-form input').val('');
   allRestaurants.push(json);
   render();
@@ -94,9 +139,15 @@ function newRestaurantErr(err) {
 function deleteRestaurantSuccess(json) {
   var restaurant = json;
   var restaurantId = restaurant._id;
-  for(var index = 0; index < allRestaurants.length; index++) {
-    if(allRestaurants[index]._id === restaurantId) {
-      allRestaurants.splice(index, 1);
+  for(var i = 0; i < allRestaurants.length; i++) {
+    if(allRestaurants[i]._id === restaurantId) {
+      allRestaurants.splice(i, 1);
+      break;
+    }
+  }
+  for(var j = 0; j < gmarker.length; j++) {
+    if(gmarker[j].id === restaurantId) {
+      gmarker[j].setMap(null);
       break;
     }
   }

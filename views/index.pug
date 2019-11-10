@@ -16,28 +16,40 @@ html(lang='en')
 
     // APPLICATION SCRIPTS
     script(src='/scripts/app.js')
-
   body
     .container.text-center
       h1 Restaurant App
       h2 Hello World!
       br
-      button#show-form.btn.btn-primary.text-center Add Restaurant
-      .row.justify-content-md-center
-        #form-box.jumbotron
-            h4 Add a New Restaurant
+      .row.justify-content-center
+        button.btn.btn-primary.text-center(data-toggle='modal', data-target='#formModal') Add Restaurant
+      br
+      #map
+      #RestaurantTarget
+    #formModal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            h5.modal-title Add Restaurant
+            button.close(type='button', data-dismiss='modal', aria-label='Close', data-toggle='tooltip', data-placement='bottom', title='Cancel')
+              span(aria-hidden='true') &times;
+          .modal-body
             form#restaurant-form
               .form-group
                 label(for="restaurantName") Restaurant Name
-                input.text-center.form-control(type='text',name="restaurantName", placeholder="Baitlin's Bakery", required="")
+                input#restaurant-name.form-control(type='text',name="restaurantName", placeholder="Baitlin's Bakery", required="")
               .form-group
-                label(for="restuarantAddy") Restaurant Address
-                input.text-center.form-control(type='text',name="restaurantAddy", placeholder="123 Main St., San Jose, CA, USA", required="")
+                label(for="restaurantAddy") Restaurant Address
+                input#autocomplete.form-control(type='text',name="restaurantAddy", placeholder="123 Main St., San Jose, CA", required="")
               .form-group
-                label(for="restuarantType") Type of Food
-                input.text-center.form-control(type='text',name="restaurantType", placeholder="Pastries & Desserts", required="")
-              button.btn.btn-primary.text-center(type='submit') Save Restaurant
-              br
-              br
-              button#close-form.btn.btn-danger.text-center Cancel
-      #RestaurantTarget
+                label(for="restaurantType") Type of Food
+                select.form-control.form-control-sm(name="restaurantType", required="")
+                  option Pizza
+                  option Wings
+                  option Burgers
+                  option Mexican
+                  option Asian
+                  option Sandwiches
+                  option Other
+              button.btn.btn-primary(type='submit') Save Restaurant
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDW_MWwghHDNNSb9uUukJ8XFZmhhezelFw&libraries=places&callback=initAll', async='', defer='')

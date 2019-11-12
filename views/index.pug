@@ -3,19 +3,53 @@ html(lang='en')
   head
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
-    title Quote App
+    title Restaurant App
 
     // STYLESHEETS
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css')
+    link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
     link(rel='stylesheet', href='/styles/styles.css')
 
     // VENDOR SCRIPTS
-    script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js')
-    script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js')
+    script(src="https://code.jquery.com/jquery-3.4.1.min.js", integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=", crossorigin="anonymous")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js", integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1", crossorigin="anonymous")
+    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js", integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM", crossorigin="anonymous")
 
     // APPLICATION SCRIPTS
     script(src='/scripts/app.js')
   body
     .container.text-center
-      h1 Restaurant App
-      h3 Hello World!
+      h1 Local Restaurant Log
+      h4 Click the button bellow to log a new restaurant!
+      .row.justify-content-center
+        button.btn.btn-primary.text-center(data-toggle='modal', data-target='#formModal') Add Restaurant
+      br
+      .row
+        #map.col-md-6
+        #RestaurantTarget.col-md-6
+    #formModal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            h5.modal-title Add Restaurant
+            button.close(type='button', data-dismiss='modal', aria-label='Close', data-toggle='tooltip', data-placement='bottom', title='Cancel')
+              span(aria-hidden='true') &times;
+          .modal-body
+            form#restaurant-form
+              .form-group
+                label(for="restaurantName") Restaurant Name
+                input#restaurant-name.form-control(type='text',name="restaurantName", placeholder="Baitlin's Bakery", required="")
+              .form-group
+                label(for="restaurantAddy") Restaurant Address
+                input#autocomplete.form-control(type='text',name="restaurantAddy", placeholder="123 Main St., San Jose, CA", required="")
+              .form-group
+                label(for="restaurantType") Type of Food
+                select.form-control.form-control-sm(name="restaurantType", required="")
+                  option Pizza
+                  option Wings
+                  option Burgers
+                  option Mexican
+                  option Asian
+                  option Sandwiches
+                  option Other
+              button.btn.btn-primary(type='submit') Save Restaurant
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDW_MWwghHDNNSb9uUukJ8XFZmhhezelFw&libraries=places&callback=initAll', async='', defer='')

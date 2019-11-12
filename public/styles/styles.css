@@ -1,0 +1,27 @@
+#RestaurantTarget {
+  display: inline-block;
+  height: 70vh;
+  overflow: scroll;
+}
+#map{
+  height: 70vh;
+  display: inline-block;
+  border: solid 1px black;
+  border-radius: .25rem;
+}
+.pac-container {
+    z-index: 9999 !important;
+}
+.restaurant-show {
+  height: auto;
+  background-color: lightgrey;
+  border-radius: .25rem;
+  margin-bottom: 1rem;
+  padding: 1em;
+  width: 40vw;
+  display: inline-block;
+  border: solid 1px black;
+}
+.restaurant-text {
+  font-size: .75em;
+}

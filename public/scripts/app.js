@@ -97,13 +97,13 @@ function formatRestaurant(restaurant) {
   restaurantPlot.id = restaurant._id;
   gmarker.push(restaurantPlot);
   return`
-  <hr>
     <div class='restaurant-show text-left' >
-      <p><small>Name:</small> <b>${restaurant.name}</b></p>
-      <p><small>Address:</small> <b>${restaurant.address}</b></p>
-      <p><small>Type:</small> <b><i>${restaurant.type}</i></b></p>
-      <button type="button" name="button" class="deleteBtn btn btn-danger btn-block" data-id=${restaurant._id}>Delete Restaurant</button>
-    </div>`
+      <p class='restaurant-text'><small>Name:</small> <b>${restaurant.name}</b></p>
+      <p class='restaurant-text'><small>Address:</small> <b>${restaurant.address}</b></p>
+      <p class='restaurant-text'><small>Type:</small> <b><i>${restaurant.type}</i></b></p>
+      <button type="button" name="button" class="deleteBtn btn btn-sm btn-danger btn-block" data-id=${restaurant._id}>Delete Restaurant</button>
+    </div>
+    <br/>`
 }
 
 function formatAllRestaurants(restaurants){
@@ -148,7 +148,6 @@ function deleteRestaurantSuccess(json) {
   for(var j = 0; j < gmarker.length; j++) {
     if(gmarker[j].id === restaurantId) {
       gmarker[j].setMap(null);
-      break;
     }
   }
   render();

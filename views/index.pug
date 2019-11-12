@@ -18,14 +18,14 @@ html(lang='en')
     script(src='/scripts/app.js')
   body
     .container.text-center
-      h1 Restaurant App
-      h2 Hello World!
-      br
+      h1 Local Restaurant Log
+      h4 Click the button bellow to log a new restaurant!
       .row.justify-content-center
         button.btn.btn-primary.text-center(data-toggle='modal', data-target='#formModal') Add Restaurant
       br
-      #map
-      #RestaurantTarget
+      .row
+        #map.col-md-6
+        #RestaurantTarget.col-md-6
     #formModal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
       .modal-dialog(role='document')
         .modal-content
